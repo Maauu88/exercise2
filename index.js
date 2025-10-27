@@ -1,6 +1,6 @@
 import express from "express";
 import { connectDB } from "./db.js";
-import { Card } from "./models/card.js";
+import { Card } from "./models/Card.js";
 const app = express();
 connectDB();
 
@@ -23,12 +23,62 @@ app.get("/getCard/:id", async (req, res) => {
     console.error(error);
   }
 });
+
+app.get("/getCards", async (req, res) => {
+  try {
+    const card = await Card.find();
+    res.status(200).json(card);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+//UPDATE CARD
+app.put("/updateCard/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const updatedCard = await Card.findByIdAndUpdate(id, updates, {
+      new: true,
+    });
+
+    if (!updatedCard) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    res.status(200).json({
+      message: "Card updated successfully",
+      data: updatedCard,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating card" });
+  }
+});
+
+//DELETE CARD
+app.delete("/deleteCard/:id", async (req, res) => {
+  try {
+    const { id } = req.params; //  se lee el ID de la URL
+    const deletedCard = await Card.findByIdAndDelete(id); // se elimina la tarjeta por id
+
+    if (!deletedCard) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+    res.status(200).json({ message: "Card deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error deleting card" });
+  }
+});
+
 //app representa al servidor,
 app.get("/hello", (req, res) => {
-  res.status(200).send("vamos moviendo su co lita");
+  res.status(200).send("si funciona");
 });
 app.get("/hola", (req, res) => {
-  res.status(200).send("vamos moviendo su colitaaa");
+  res.status(200).send("creo que si funciona");
 });
 
 //const app = express();
