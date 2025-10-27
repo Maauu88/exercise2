@@ -1,6 +1,6 @@
 import express from "express";
 import { connectDB } from "./db.js";
-import { Card } from "./models/Card.js";
+import { Card } from "./models/card.js";
 const app = express();
 connectDB();
 
