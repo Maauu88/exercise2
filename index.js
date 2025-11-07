@@ -95,3 +95,17 @@ app.post("/send", (req, res) => {
 app.listen(3000, () => {
   console.log("Servidor Ejecutandose en http://localhost:3000");
 });
+
+app.get("/review", (req, res) => {
+  const message = `
+    Endpoints disponibles:
+    - POST /cards → Crear una tarjeta (createCard)
+    - GET /getAllCards → Obtener todas las tarjetas (getCards)
+    - GET /getCard/:id → Obtener una tarjeta por ID (getCard)
+    - PUT /updateAllcards/:id → Actualizar toda una tarjeta (updateCard)
+    - PATCH /updateCard/:id → Actualizar parcialmente una tarjeta (updateCard parcial)
+    - DELETE /delateCards/:id → Eliminar una tarjeta (deleteCard)
+  `;
+
+  res.status(200).send(message);
+});
