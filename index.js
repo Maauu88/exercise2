@@ -73,6 +73,38 @@ app.delete("/deleteCard/:id", async (req, res) => {
   }
 });
 
+app.patch("/updateCard/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Se obtiene el ID de la URL
+    const updates = req.body; // Se obtienen los campos a actualizar
+
+    // Validar que haya campos para actualizar
+    if (Object.keys(updates).length === 0) {
+      return res.status(400).json({ message: "No fields provided to update" });
+    }
+
+    // Buscar y actualizar parcialmente el documento
+    const updatedCard = await Card.findByIdAndUpdate(id, updates, {
+      new: true, // Devuelve el documento actualizado
+      runValidators: true, // Valida los campos según el modelo
+    });
+
+    // Si no se encuentra la tarjeta
+    if (!updatedCard) {
+      return res.status(404).json({ message: "Card not found" });
+    }
+
+    // Respuesta exitosa
+    res.status(200).json({
+      message: "Card updated successfully (partial update)",
+      data: updatedCard,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating card", error });
+  }
+});
+
 //app representa al servidor,
 app.get("/hello", (req, res) => {
   res.status(200).send("si funciona");
@@ -100,7 +132,7 @@ app.get("/review", (req, res) => {
   const message = `
     Endpoints disponibles:
     - POST /cards → Crear una tarjeta (createCard)
-    - GET /getAllCards → Obtener todas las tarjetas (getCards)
+    - GET /getCards → Obtener todas las tarjetas (getCards)
     - GET /getCard/:id → Obtener una tarjeta por ID (getCard)
     - PUT /updateAllcards/:id → Actualizar toda una tarjeta (updateCard)
     - PATCH /updateCard/:id → Actualizar parcialmente una tarjeta (updateCard parcial)
