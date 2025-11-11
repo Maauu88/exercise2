@@ -1,7 +1,7 @@
 import express from "express";
 import { connectDB } from "./db.js";
 import { Card } from "./models/card.js";
-import { cors } from "cors";
+import cors from "cors";
 const app = express();
 connectDB();
 
