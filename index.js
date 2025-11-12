@@ -29,6 +29,7 @@ app.get("/getCard/:id", async (req, res) => {
 app.get("/getCards", async (req, res) => {
   try {
     const card = await Card.find();
+    console.log(card);
     res.status(200).json(card);
   } catch (error) {
     console.error(error);
@@ -116,7 +117,7 @@ app.get("/hola", (req, res) => {
 });
 
 //const app = express();
-app.use(express.json());
+//app.use(express.json());//NO ESTABA COMENTADO Y COMENTÉ
 app.post("/send", (req, res) => {
   const { user, email } = req.body;
   console.log("Datos recibidos: " + user + "" + email);
@@ -136,9 +137,9 @@ app.get("/review", (req, res) => {
     - POST /cards → Crear una tarjeta (createCard)
     - GET /getCards → Obtener todas las tarjetas (getCards)
     - GET /getCard/:id → Obtener una tarjeta por ID (getCard)
-    - PUT /updateAllcards/:id → Actualizar toda una tarjeta (updateCard)
+    - PUT /updateCard/:id → Actualizar toda una tarjeta (updateCard)
     - PATCH /updateCard/:id → Actualizar parcialmente una tarjeta (updateCard parcial)
-    - DELETE /delateCards/:id → Eliminar una tarjeta (deleteCard)
+    - DELETE /delateCard/:id → Eliminar una tarjeta (deleteCard)
   `;
 
   res.status(200).send(message);
