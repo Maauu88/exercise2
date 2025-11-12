@@ -2,11 +2,21 @@ import express from "express";
 import { connectDB } from "./db.js";
 import { Card } from "./models/card.js";
 import cors from "cors";
+
 const app = express();
 connectDB();
 
+// Configuración CORS explícita
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "https://exercise2-1.onrender.com"], // <-- agrega aquí tu URL frontend si la tienes
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
-app.use(cors());
+//app.use(cors());
 
 app.post("/cards", async (req, res) => {
   try {
