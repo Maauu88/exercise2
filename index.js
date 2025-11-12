@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: ["http://localhost:5173", "https://exercise2-1.onrender.com"], // <-- agrega aquí tu URL frontend si la tienes
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true,
+    allowedHeaders: ["Content-Type"],
   })
 );
 
