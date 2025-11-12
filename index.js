@@ -19,10 +19,13 @@ app.post("/cards", async (req, res) => {
 });
 app.get("/getCard/:id", async (req, res) => {
   try {
-    const card = await Card.find();
-    res.status(200).json(card).send("Card created succesfully");
+    const { id } = req.params;
+    const card = await Card.findById(id);
+    if (!card) return res.status(404).json({ message: "Card not found" });
+    res.status(200).json(card);
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: "Error fetching card" });
   }
 });
 
