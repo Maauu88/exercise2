@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://exercise1-qtu7.onrender.com", // <-- TU LINK AQUÍ
+      "https://exercise1-qtu7.onrender.com", // <-- LINK AQUÍ.
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"],
