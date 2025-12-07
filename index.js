@@ -14,7 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://exercise2-1.onrender.com", // <-- TU LINK AQUÍ
+      "https://exercise1-qtu7.onrender.com", // <-- LINK AQUÍ
     ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     allowedHeaders: ["Content-Type"],
@@ -106,14 +106,14 @@ app.patch("/updateCard/:id", async (req, res) => {
 app.delete("/deleteCard/:id", async (req, res) => {
   try {
     const card = await Card.findByIdAndDelete(req.params.id);
-    if (!card) return res.status(404).send("Card not found");
-    res.status(200).send("Card deleted successfully");
+    if (!card) return res.status(404).json("Card not found");
+    res.status(200).json("Card deleted successfully");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error deleting card");
+    res.status(500).json("Error deleting card");
   }
 });
-
+//hola
 // =========================
 //  ENDPOINTS PERSONAS
 // =========================
